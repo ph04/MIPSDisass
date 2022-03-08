@@ -1,0 +1,39 @@
+{
+    "opcodes": [
+        {
+            "bits": "000000",
+            "name": "add",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100000"
+        },
+        {
+            "bits": "001000",
+            "name": "addi",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        },
+        {
+            "bits": "001001",
+            "name": "addiu",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        },
+        {
+            "bits": "001000",
+            "name": "addu",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100001"
+        },
+        {
+            "bits": "001000",
+            "name": "and",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100100"
+        }
+    ]
+}
