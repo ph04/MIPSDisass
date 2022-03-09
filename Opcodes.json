@@ -1,39 +1,65 @@
-{
-    "opcodes": [
-        {
+[
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "syscall",
+            "type": "S",
+            "shamt": null,
+            "func": "001100"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "nop",
+            "type": "R",
+            "shamt": "00000",
+            "func": "000000"
+        }
+    },
+    {
+        "instruction": {
             "bits": "000000",
             "name": "add",
             "type": "R",
             "shamt": "00000",
             "func": "100000"
-        },
-        {
+        }
+    },
+    {
+        "instruction": {
             "bits": "001000",
             "name": "addi",
             "type": "I",
             "shamt": null,
             "func": null
-        },
-        {
+        }
+    },
+    {
+        "instruction": {
             "bits": "001001",
             "name": "addiu",
             "type": "I",
             "shamt": null,
             "func": null
-        },
-        {
-            "bits": "001000",
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
             "name": "addu",
             "type": "R",
             "shamt": "00000",
             "func": "100001"
-        },
-        {
-            "bits": "001000",
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
             "name": "and",
             "type": "R",
             "shamt": "00000",
             "func": "100100"
         }
-    ]
-}
+    }
+]

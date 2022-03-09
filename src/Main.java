@@ -5,11 +5,14 @@ public class Main {
         Disassembler disassembler;
 
         try {
-            disassembler = new Disassembler("../../asmips/nop_test");
+            disassembler = new Disassembler("../../asmips/nop_test2");
 
             disassembler.disassemble("nop_test.s");
+
+            disassembler.printOutputLines();
         } catch (IOException e) {
             e.printStackTrace();
+
             System.out.println("The input file does not exist.");
         }
     }
