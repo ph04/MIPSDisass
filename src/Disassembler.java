@@ -178,8 +178,8 @@ public class Disassembler {
                                 }
                             }
                         } else if (objectType.contains("S")) {
-                            // note: 'break' instruction is untested
-                            // but should work without any major issue
+                            // note: the 'break' instruction is untested
+                            // but it should work without any major issue;
                             // if any error are noticed please report
                             // them on the github page, but don't
                             // expect me to fix them, this code is
@@ -187,7 +187,7 @@ public class Disassembler {
                             // notice that by yourself, it started
                             // as a meme and then i coded it
                             // just for fun, so don't expect anything
-                            // from me and from this trash code
+                            // from me and from this complete garbage
                             this.outputLines[i] = objectName;
                         }
 

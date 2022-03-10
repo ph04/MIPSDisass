@@ -2,9 +2,9 @@
 
 A very bad and stupid Java MIPS disassembler.
 
-**Note**: this disassembler was entirely tested with the MARS assembler functionality,
-so if used on other binaries, compiled by other compilers (such as *gcc*, which has the
-MIPS target option), the disassembled instructions are not guaranteed to be exact.
+**Note**: this disassembler was (almost) entirely tested with the MARS assembler functionality,
+so if used on binaries assembled by other assemblers (such as *gcc*, which has the
+MIPS target option), the disassembled instructions are not guaranteed to be correct.
 
 ## TODO list
 
