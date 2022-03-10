@@ -2,24 +2,6 @@
     {
         "instruction": {
             "bits": "000000",
-            "name": "syscall",
-            "type": "S",
-            "shamt": null,
-            "func": "001100"
-        }
-    },
-    {
-        "instruction": {
-            "bits": "000000",
-            "name": "nop",
-            "type": "R",
-            "shamt": "00000",
-            "func": "000000"
-        }
-    },
-    {
-        "instruction": {
-            "bits": "000000",
             "name": "add",
             "type": "R",
             "shamt": "00000",
@@ -60,6 +42,186 @@
             "type": "R",
             "shamt": "00000",
             "func": "100100"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "001100",
+            "name": "andi",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "001111",
+            "name": "lui",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "nor",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100111"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "or",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100101"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "001101",
+            "name": "ori",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "slt",
+            "type": "R",
+            "shamt": "00000",
+            "func": "101010"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "001010",
+            "name": "slti",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "001011",
+            "name": "sltiu",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "sltu",
+            "type": "R",
+            "shamt": "00000",
+            "func": "101011"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "sub",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100010"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "subu",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100011"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "xor",
+            "type": "R",
+            "shamt": "00000",
+            "func": "100110"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "001110",
+            "name": "xori",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "sll",
+            "type": "R",
+            "shamt": null,
+            "func": "000000"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "sllv",
+            "type": "R",
+            "shamt": "00000",
+            "func": "000100"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "sra",
+            "type": "R",
+            "shamt": null,
+            "func": "000011"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "srav",
+            "type": "R",
+            "shamt": "00000",
+            "func": "000111"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "srl",
+            "type": "R",
+            "shamt": null,
+            "func": "000010"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "srlv",
+            "type": "R",
+            "shamt": "00000",
+            "func": "000110"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "syscall",
+            "type": "S",
+            "shamt": null,
+            "func": "001100"
         }
     }
 ]

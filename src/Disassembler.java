@@ -8,7 +8,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
 public class Disassembler {
     public String inputFileName;
     private JSONArray opcodes;
@@ -85,7 +84,6 @@ public class Disassembler {
         }
     }
 
-    // TODO: debug method
     public void printOutputLines() {
         for (String line : this.outputLines) {
             System.out.print(line);
@@ -100,13 +98,20 @@ public class Disassembler {
         for (int i = 0; i < this.inputBitsLength; i++) {
             String line = this.inputBits[i];
 
+            // special check for nop instruction
+            // because fails due to other similar instructions
+            if (line.equals("00000000000000000000000000000000")) {
+                this.outputLines[i] = "nop\n";
+
+                continue;
+            }
+
             // check the first 6 bits of the line
             String mnemonicBits = line.substring(0, 6);
 
             // if the first 6 bits are "000000"
             // it means that the instruction is
             // of type "R" (except for few cases)
-            // TODO: check exceptions
             if (mnemonicBits.equals("000000")) {
                 // check the last 6 bist of the line
                 String funcBits = line.substring(26, 32);
@@ -115,25 +120,62 @@ public class Disassembler {
                     // get instruction
                     JSONObject instructionObject = (JSONObject) ((JSONObject) obj).get("instruction");
 
-                    // get bits field
+                    // get bits
                     String objectBits = (String) instructionObject.get("bits");
 
-                    // get func field
+                    // get func
                     String objectFunc = (String) instructionObject.get("func");
 
-                    if (mnemonicBits.equals(objectBits) && objectFunc.equals(funcBits)) {
+                    // get type
+                    String objectType = (String) instructionObject.get("type");
+
+                    if (mnemonicBits.equals(objectBits) && objectFunc.equals(funcBits) && objectType.equals("R")) {
                         // get name
                         String objectName = (String) instructionObject.get("name");
 
-                        // make sure that it's a syscall instruction
-                        if (objectName.equals("syscall") && !line.substring(6, 26).equals("00000000000000000000")) {
-                            continue;
+                        // get shamt
+                        String objectShamt = (String) instructionObject.get("shamt");
+
+                        // it the "shamt" field is null
+                        // the instruction is a shifter
+                        if (objectShamt == null) {
+                            // get rt
+                            String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
+
+                            // get rd
+                            String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
+
+                            // get imm
+                            String saValue = Integer.toString(this.bitsToInt(i, 21, 26));
+
+                            // note: they are inverted in the binary!
+                            this.outputLines[i] = objectName + " " + rdValue + ", " + rtValue + ", " + saValue;
+
+                            break;
                         }
 
-                        // System.out.println(objectName); // TODO: debug
-                        this.outputLines[i] = objectName;
+                        // get rs
+                        String rsValue = this.registers[this.bitsToInt(i, 6, 11)];
+
+                        // get rt
+                        String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
+
+                        // get rd
+                        String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
+
+                        // note: they are inverted in the binary!
+                        this.outputLines[i] = objectName + " " + rdValue + ", " + rsValue + ", " + rtValue;
 
                         break;
+                    } else {
+                        // get name
+                        String objectName = (String) instructionObject.get("name");
+
+                        if (objectType.equals("S") && objectFunc.equals(funcBits)) {
+                            this.outputLines[i] = objectName;
+
+                            break;
+                        }
                     }
                 }
             } else {
@@ -145,7 +187,7 @@ public class Disassembler {
                     String objectBits = (String) instructionObject.get("bits");
 
                     if (mnemonicBits.equals(objectBits)) {
-                        // get name field
+                        // get name
                         String objectName = (String) instructionObject.get("name");
 
                         // get rs

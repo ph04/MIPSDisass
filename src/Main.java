@@ -5,7 +5,7 @@ public class Main {
         Disassembler disassembler;
 
         try {
-            disassembler = new Disassembler("../../asmips/nop_test2");
+            disassembler = new Disassembler("../../asmips/nop_test3");
 
             disassembler.disassemble("nop_test.s");
 
