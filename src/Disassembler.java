@@ -106,130 +106,129 @@ public class Disassembler {
                 continue;
             }
 
-            // check the first 6 bits of the line
             String mnemonicBits = line.substring(0, 6);
 
             // if the first 6 bits are "000000"
             // it means that the instruction is
             // of type "R" (except for few cases)
-            if (mnemonicBits.equals("000000")) {
-                // check the last 6 bist of the line
+            if (mnemonicBits.equals("000000") || mnemonicBits.equals("010000")) {
                 String funcBits = line.substring(26, 32);
 
                 for (Object obj : this.opcodes) {
-                    // get instruction
                     JSONObject instructionObject = (JSONObject) ((JSONObject) obj).get("instruction");
 
-                    // get bits
                     String objectBits = (String) instructionObject.get("bits");
-
-                    // get func
                     String objectFunc = (String) instructionObject.get("func");
-
-                    // get type
                     String objectType = (String) instructionObject.get("type");
 
-                    if (mnemonicBits.equals(objectBits) && objectFunc.equals(funcBits) && objectType.contains("R")) {
-                        // get name
+                    if (mnemonicBits.equals(objectBits) && objectFunc.equals(funcBits)) {
                         String objectName = (String) instructionObject.get("name");
-
-                        // get shamt
                         String objectShamt = (String) instructionObject.get("shamt");
 
-                        // it the "shamt" field is null
-                        // the instruction is a shifter
-                        if (objectShamt == null) {
-                            // get rt
+                        if (objectType.contains("R")) {
+
+                            // it the "shamt" field is null
+                            // the instruction is a shifter
+                            if (objectShamt == null) {
+                                String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
+                                String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
+                                String saValue = Integer.toString(this.bitsToInt(i, 21, 26));
+
+                                this.outputLines[i] = objectName + " " + rdValue + ", " + rtValue + ", " + saValue;
+
+                                break;
+                            }
+
+                            String rsValue = this.registers[this.bitsToInt(i, 6, 11)];
                             String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
 
-                            // get rd
-                            String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
+                            // the mul and div instructions
+                            // have unusual formats than the others
+                            if (objectType.contains("d")) {
+                                if (rtValue.equals("$zero")) {
+                                    if (rsValue.equals("$zero")) {
+                                        String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
 
-                            // get imm
-                            String saValue = Integer.toString(this.bitsToInt(i, 21, 26));
-
-                            // note: they are inverted in the binary!
-                            this.outputLines[i] = objectName + " " + rdValue + ", " + rtValue + ", " + saValue;
-
-                            break;
-                        }
-
-                        // get rs
-                        String rsValue = this.registers[this.bitsToInt(i, 6, 11)];
-
-                        // get rt
-                        String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
-
-                        // the mul and div instructions
-                        // have unusual formats than the others
-                        if (objectType.contains("d")) {
-                            if (rtValue.equals("$zero")) {
-                                if (rsValue.equals("$zero")) {
-                                    // get rd
-                                    String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
-
-                                    // note: they are inverted in the binary!
-                                    this.outputLines[i] = objectName + " " + rdValue;
+                                        this.outputLines[i] = objectName + " " + rdValue;
+                                    } else {
+                                        this.outputLines[i] = objectName + " " + rsValue;
+                                    }
                                 } else {
-                                    // note: they are inverted in the binary!
-                                    this.outputLines[i] = objectName + " " + rsValue;
+                                    this.outputLines[i] = objectName + " " + rsValue + ", " + rtValue;
                                 }
                             } else {
-                                // note: they are inverted in the binary!
-                                this.outputLines[i] = objectName + " " + rsValue + ", " + rtValue;
-                            }
-                        } else {
-                            // get rd
-                            String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
+                                String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
 
-                            // note: they are inverted in the binary!
-                            this.outputLines[i] = objectName + " " + rdValue + ", " + rsValue + ", " + rtValue;
+                                if (rsValue.equals("$zero")) {
+                                    this.outputLines[i] = objectName + " " + rtValue + ", " + rdValue;
+                                } else if (rsValue.equals("$a0")){
+                                    // this instruction had to be hardcoded
+                                    // since there are not enough information
+                                    // stored in the Opcode.json file to
+                                    // distinguish the two opcodes
+                                    this.outputLines[i] = "mtc0" + " " + rtValue + ", " + rdValue;
+                                } else if (objectType.contains("j")) {
+                                    if (rdValue.equals("$zero")) {
+                                        this.outputLines[i] = objectName + " " + rsValue;
+                                    } else {
+                                        this.outputLines[i] = objectName + " " + rdValue + ", " + rsValue;
+                                    }
+                                } else {
+                                    this.outputLines[i] = objectName + " " + rdValue + ", " + rsValue + ", " + rtValue;
+                                }
+                            }
+                        } else if (objectType.contains("S")) {
+                            // note: 'break' instruction is untested
+                            // but should work without any major issue
+                            // if any error are noticed please report
+                            // them on the github page, but don't
+                            // expect me to fix them, this code is
+                            // complete trash, and i think you can
+                            // notice that by yourself, it started
+                            // as a meme and then i coded it
+                            // just for fun, so don't expect anything
+                            // from me and from this trash code
+                            this.outputLines[i] = objectName;
                         }
 
                         break;
-                    } else {
-                        // get name
-                        String objectName = (String) instructionObject.get("name");
-
-                        if (objectType.equals("S") && objectFunc.equals(funcBits)) {
-                            this.outputLines[i] = objectName;
-
-                            break;
-                        }
                     }
                 }
             } else {
                 for (Object obj : this.opcodes) {
-                    // get instruction
                     JSONObject instructionObject = (JSONObject) ((JSONObject) obj).get("instruction");
 
-                    // get bits field
                     String objectBits = (String) instructionObject.get("bits");
+                    String objectType = (String) instructionObject.get("type");
+
+                    if (objectType.equals("B")) {
+                        String objectName = (String) instructionObject.get("name");
+                        String rsValue = this.registers[this.bitsToInt(i, 6, 11)];
+                        String offsetValue = Integer.toString(this.bitsToInt(i, 16, 32));
+
+                        this.outputLines[i] = objectName + " " + rsValue + ", " + offsetValue;
+
+                        break;
+                    }
 
                     if (mnemonicBits.equals(objectBits)) {
-                        // get name
                         String objectName = (String) instructionObject.get("name");
-
-                        // get rs
                         String rsValue = this.registers[this.bitsToInt(i, 6, 11)];
-
-                        // get rt
                         String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
-
-                        // get imm
                         String immValue = Integer.toString(this.bitsToInt(i, 16, 32));
 
                         // the instructions that start with a '1'
                         // are memory access instructions, and must
                         // be printed in a different format
                         if (mnemonicBits.charAt(0) == '1') {
-                            // note: they are inverted in the binary!
                             this.outputLines[i] = objectName + " " + rtValue + ", " + immValue + "(" + rsValue + ")";
+                        } else if (objectType.contains("J")) {
+                            String targetValue = Integer.toHexString(this.bitsToInt(i, 6, 32));
+
+                            this.outputLines[i] = objectName + " 0x" + targetValue;
                         } else if (objectName.equals("lui")) { // this instruction is an exception
-                            // note: they are inverted in the binary!
                             this.outputLines[i] = objectName + " " + rtValue + ", " + immValue;
                         } else {
-                            // note: they are inverted in the binary!
                             this.outputLines[i] = objectName + " " + rtValue + ", " + rsValue + ", " + immValue;
                         }
 

@@ -10,7 +10,7 @@ MIPS target option), the disassembled instructions are not guaranteed to be exac
 
 - [x] fix shifting instructions
 - [x] implement mul and div instructions
-- [ ] implement branch instructions
+- [x] implement branch instructions
 - [ ] negative numbers are incorrectly displayed
 - [ ] print instructions on output file with a new method
 - [ ] build the jar file

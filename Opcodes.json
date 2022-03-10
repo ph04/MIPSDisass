@@ -289,6 +289,141 @@
     },
     {
         "instruction": {
+            "bits": "000100",
+            "name": "beq",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000001",
+            "name": "bgez",
+            "type": "B",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000001",
+            "name": "bgezal",
+            "type": "B",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000111",
+            "name": "bgtz",
+            "type": "B",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000110",
+            "name": "blez",
+            "type": "B",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000001",
+            "name": "bltz",
+            "type": "B",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000001",
+            "name": "bltzal",
+            "type": "B",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000101",
+            "name": "bne",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "break",
+            "type": "S",
+            "shamt": null,
+            "func": "001101"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000010",
+            "name": "j",
+            "type": "J",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000011",
+            "name": "jal",
+            "type": "J",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "jalr",
+            "type": "Rj",
+            "shamt": "00000",
+            "func": "001001"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "jr",
+            "type": "Rj",
+            "shamt": "00000",
+            "func": "001000"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "010000",
+            "name": "mfc0",
+            "type": "R",
+            "shamt": "00000",
+            "func": "000000"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "010000",
+            "name": "mtc0",
+            "type": "R",
+            "shamt": "00000",
+            "func": "000000"
+        }
+    },
+    {
+        "instruction": {
             "bits": "000000",
             "name": "syscall",
             "type": "S",
