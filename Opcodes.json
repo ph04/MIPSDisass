@@ -223,5 +223,77 @@
             "shamt": null,
             "func": "001100"
         }
+    },
+    {
+        "instruction": {
+            "bits": "100000",
+            "name": "lb",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "100100",
+            "name": "lbu",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "100001",
+            "name": "lh",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "100101",
+            "name": "lbu",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "100011",
+            "name": "lw",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "101000",
+            "name": "sb",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "101001",
+            "name": "sh",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
+    },
+    {
+        "instruction": {
+            "bits": "101011",
+            "name": "sw",
+            "type": "I",
+            "shamt": null,
+            "func": null
+        }
     }
 ]

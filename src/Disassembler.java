@@ -199,8 +199,16 @@ public class Disassembler {
                         // get imm
                         String immValue = Integer.toString(this.bitsToInt(i, 16, 32));
 
-                        // note: they are inverted in the binary!
-                        this.outputLines[i] = objectName + " " + rtValue + ", " + rsValue + ", " + immValue;
+                        if (mnemonicBits.charAt(0) == '1') {
+                            // note: they are inverted in the binary!
+                            this.outputLines[i] = objectName + " " + rtValue + ", " + immValue + "(" + rsValue + ")";
+                        } else if (objectName.equals("lui")) { // this instruction is an exception
+                            // note: they are inverted in the binary!
+                            this.outputLines[i] = objectName + " " + rtValue + ", " + immValue;
+                        } else {
+                            // note: they are inverted in the binary!
+                            this.outputLines[i] = objectName + " " + rtValue + ", " + rsValue + ", " + immValue;
+                        }
 
                         break;
                     }
