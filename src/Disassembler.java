@@ -129,7 +129,7 @@ public class Disassembler {
                     // get type
                     String objectType = (String) instructionObject.get("type");
 
-                    if (mnemonicBits.equals(objectBits) && objectFunc.equals(funcBits) && objectType.equals("R")) {
+                    if (mnemonicBits.equals(objectBits) && objectFunc.equals(funcBits) && objectType.contains("R")) {
                         // get name
                         String objectName = (String) instructionObject.get("name");
 
@@ -160,11 +160,31 @@ public class Disassembler {
                         // get rt
                         String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
 
-                        // get rd
-                        String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
+                        // the mul and div instructions
+                        // have unusual formats than the others
+                        if (objectType.contains("d")) {
+                            if (rtValue.equals("$zero")) {
+                                if (rsValue.equals("$zero")) {
+                                    // get rd
+                                    String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
 
-                        // note: they are inverted in the binary!
-                        this.outputLines[i] = objectName + " " + rdValue + ", " + rsValue + ", " + rtValue;
+                                    // note: they are inverted in the binary!
+                                    this.outputLines[i] = objectName + " " + rdValue;
+                                } else {
+                                    // note: they are inverted in the binary!
+                                    this.outputLines[i] = objectName + " " + rsValue;
+                                }
+                            } else {
+                                // note: they are inverted in the binary!
+                                this.outputLines[i] = objectName + " " + rsValue + ", " + rtValue;
+                            }
+                        } else {
+                            // get rd
+                            String rdValue = this.registers[this.bitsToInt(i, 16, 21)];
+
+                            // note: they are inverted in the binary!
+                            this.outputLines[i] = objectName + " " + rdValue + ", " + rsValue + ", " + rtValue;
+                        }
 
                         break;
                     } else {
@@ -199,6 +219,9 @@ public class Disassembler {
                         // get imm
                         String immValue = Integer.toString(this.bitsToInt(i, 16, 32));
 
+                        // the instructions that start with a '1'
+                        // are memory access instructions, and must
+                        // be printed in a different format
                         if (mnemonicBits.charAt(0) == '1') {
                             // note: they are inverted in the binary!
                             this.outputLines[i] = objectName + " " + rtValue + ", " + immValue + "(" + rsValue + ")";

@@ -218,6 +218,78 @@
     {
         "instruction": {
             "bits": "000000",
+            "name": "div",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "011010"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "divu",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "011011"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "mfhi",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "010000"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "mflo",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "010010"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "mthi",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "010001"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "mtlo",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "010011"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "mult",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "011000"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
+            "name": "multu",
+            "type": "Rd",
+            "shamt": "00000",
+            "func": "011001"
+        }
+    },
+    {
+        "instruction": {
+            "bits": "000000",
             "name": "syscall",
             "type": "S",
             "shamt": null,
