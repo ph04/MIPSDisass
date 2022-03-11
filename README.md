@@ -11,7 +11,8 @@ MIPS target option), the disassembled instructions are not guaranteed to be corr
 - [x] fix shifting instructions
 - [x] implement mul and div instructions
 - [x] implement branch instructions
-- [ ] negative numbers are incorrectly displayed
-- [ ] print instructions on output file with a new method
+- [x] print instructions on output file with a new method
+- [x] pass the input file and the output file from argv
+- [x] negative numbers are incorrectly displayed
+- [ ] fix branch instructions because they are broken for some reason
 - [ ] build the jar file
-- [ ] pass the input file and the output file from argv

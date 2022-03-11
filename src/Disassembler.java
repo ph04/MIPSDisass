@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 
 import org.json.simple.JSONArray;
@@ -90,11 +92,23 @@ public class Disassembler {
         }
     }
 
+    public void outputToFile(String outputFile) throws IOException {
+        FileWriter fileWriter = new FileWriter(outputFile);
+
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        
+        for (String line : this.outputLines) {
+            printWriter.print(line);
+        }
+
+        printWriter.close();
+    }
+
     private int bitsToInt(int lineIndex, int index1, int index2) {
         return Integer.parseInt(this.inputBits[lineIndex].substring(index1, index2), 2);
     }
 
-    public void disassemble(String outputFile) {
+    public void disassemble() {
         for (int i = 0; i < this.inputBitsLength; i++) {
             String line = this.inputBits[i];
 
@@ -215,7 +229,7 @@ public class Disassembler {
                         String objectName = (String) instructionObject.get("name");
                         String rsValue = this.registers[this.bitsToInt(i, 6, 11)];
                         String rtValue = this.registers[this.bitsToInt(i, 11, 16)];
-                        String immValue = Integer.toString(this.bitsToInt(i, 16, 32));
+                        String immValue = Integer.toString((short) this.bitsToInt(i, 16, 32));
 
                         // the instructions that start with a '1'
                         // are memory access instructions, and must
